@@ -12,6 +12,6 @@ IB_CLIENT_ID = 1
 # Email-related constants
 EMAIL_SENDER = "aaron.edwards.trading@gmail.com"
 EMAIL_PASSWORD = "jtzy cohe hqir pqlz"
-EMAIL_RECEIVER = EMAIL_SENDER
+EMAIL_RECEIVER = ["aacn.holdings@gmail.com", EMAIL_SENDER]
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
