@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aaron's Trading Bot UI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .status {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .controls button {
+            margin-right: 10px;
+        }
+        .logs {
+            margin-top: 20px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>Aaron's Trading Bot UI</h1>
+    <div class="status">
+        Bot Status: <strong id="bot-status">Loading...</strong><br>
+        IBKR Connection: <strong id="ibkr-status">Loading...</strong>
+    </div>
+    <div class="controls">
+        <button onclick="pauseBot()">Pause Bot</button>
+        <button onclick="resumeBot()">Resume Bot</button>
+    </div>
+    <div class="logs">
+        <h2>Logs</h2>
+        <pre id="log-content">Loading logs...</pre>
+    </div>
+
+    <script>
+        async function updateStatus() {
+            const response = await fetch('/status');
+            const data = await response.json();
+            document.getElementById('bot-status').textContent = data.bot_status;
+            document.getElementById('ibkr-status').textContent = data.ibkr_connected ? "Connected" : "Disconnected";
+        }
+
+        async function updateLogs() {
+            const response = await fetch('/logs');
+            const data = await response.json();
+            document.getElementById('log-content').textContent = data.logs.join('\n');
+        }
+
+        async function pauseBot() {
+            const response = await fetch('/pause', { method: 'POST' });
+            const data = await response.json();
+            alert(data.message);
+            updateStatus();
+        }
+
+        async function resumeBot() {
+            const response = await fetch('/resume', { method: 'POST' });
+            const data = await response.json();
+            alert(data.message);
+            updateStatus();
+        }
+
+        // Update status and logs every second
+        setInterval(updateStatus, 1000);
+        setInterval(updateLogs, 1000);
+
+        // Initial load
+        updateStatus();
+        updateLogs();
+    </script>
+</body>
+</html>
