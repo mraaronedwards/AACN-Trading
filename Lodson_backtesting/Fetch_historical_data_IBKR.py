@@ -1,24 +1,25 @@
 from ib_insync import *
 import pandas as pd
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 # Connect to TWS or IB Gateway
 ib = IB()
 ib.connect('127.0.0.1', 7497, clientId=1)  # Replace with your IP and port
 
 # Define the time range
-start_date = datetime(2023, 11, 5)  # November 6, 2023
-end_date = datetime(2024, 2, 18)    # February 17, 2024
+start_date = datetime(2025, 1, 1, tzinfo=ZoneInfo('UTC'))  # January 1, 2025
+end_date = datetime(2025, 4, 3 , tzinfo=ZoneInfo('UTC'))    # April 3, 2025
 
 # Define the relevant contracts
 contracts = [
-    {'symbol': 'ES', 'exchange': 'CME', 'currency': 'USD', 'contract_month': '202312'},  # December 2023
-    {'symbol': 'ES', 'exchange': 'CME', 'currency': 'USD', 'contract_month': '202403'}   # March 2024
+    {'symbol': 'ES', 'exchange': 'CME', 'currency': 'USD', 'contract_month': '202503', 'roll_date': "20250318" },   # March 2025
+    {'symbol': 'ES', 'exchange': 'CME', 'currency': 'USD', 'contract_month': '202506', 'roll_date': "20250618"}   # June 2025
 ]
 
 # Function to fetch historical data for a contract
 def fetch_contract_data(contract, start_date, end_date):
-
+    # Create a contract object
     es_contract = Future(
         symbol=contract['symbol'],
         exchange=contract['exchange'],
@@ -41,15 +42,33 @@ def fetch_contract_data(contract, start_date, end_date):
 
     # Convert bars to a pandas DataFrame
     df = util.df(bars)
+    # append the contract month as a new column
+    df['contract_month'] = contract['contract_month']
     return df
 
 # Fetch data for each contract
 data_frames = []
+previous_roll_date = None  # Initialize previous roll date
 for contract in contracts:
     print(f"Fetching data for {contract['contract_month']} contract...")
+    # Fetch the contract data 
     df = fetch_contract_data(contract, start_date, end_date)
     if not df.empty:
+        #for dates between start and first roll date, only include March contract
+        if previous_roll_date:
+            df = df[(df['date'] > previous_roll_date) & (df['date'] < contract['roll_date'])]
+        else:
+            df = df[(df['date'] >= start_date) & (df['date'] <= contract['roll_date'])]
+        # append specific columns to the data frame
+        df = df[['date', 'close', 'contract_month']]
+        # Convert the date column to UTC
+        df['date'] = pd.to_datetime(df['date'], unit='s', utc=True)
+        # Shift the data forward by 5 minutes // hack to allign with bender data 
+        df['date'] = df['date'] + pd.Timedelta(minutes=5)
+        # Append the DataFrame to the list
         data_frames.append(df)
+        # Update the previous roll date for the next contract
+        previous_roll_date = contract['roll_date']
     else:
         print(f"No data returned for {contract['contract_month']} contract.")
         combined_df = pd.DataFrame()  # Empty DataFrame
@@ -68,7 +87,7 @@ ib.disconnect()
 
 # Save the data to a CSV file (if data was fetched)
 if not combined_df.empty:
-    combined_df.to_csv('ES_5min_all.csv', index=False)
-    print("Data saved to 'ES_5min_all.csv'.")
+    combined_df.to_csv('ES_5min_YTD_UTC.csv', index=False)
+    print("Data saved to 'ES_5min_YTD_UTC.csv'.")
 else:
     print("No data to save.")
