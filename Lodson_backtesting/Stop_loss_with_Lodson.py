@@ -73,7 +73,7 @@ for tolerance in price_tolerance:
                             'Trade Type': 'Long',
                             'Opening Date': Lodson_trades['timestamp'].iloc[i],
                             'Open Price': Lodson_trades['fill_price'].iloc[i],
-                            'Closing Date': Lodson_trades['timestamp'].iloc[i],
+                            'Closing Date': Lodson_trades['timestamp'].iloc[i+1],
                             'Closing Price': Lodson_trades['fill_price'].iloc[i+1],
                             'Stop loss?': 'No',
                             'Profit': (Lodson_trades['fill_price'].iloc[i+1] - Lodson_trades['fill_price'].iloc[i] )*200,

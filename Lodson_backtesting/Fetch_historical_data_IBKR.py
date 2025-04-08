@@ -5,15 +5,15 @@ from zoneinfo import ZoneInfo
 
 # Connect to TWS or IB Gateway
 ib = IB()
-ib.connect('127.0.0.1', 7497, clientId=1)  # Replace with your IP and port
+ib.connect('127.0.0.1', 7496, clientId=1)  # Replace with your IP and port
 
 # Define the time range
-start_date = datetime(2025, 1, 1, tzinfo=ZoneInfo('UTC'))  # January 1, 2025
-end_date = datetime(2025, 4, 3 , tzinfo=ZoneInfo('UTC'))    # April 3, 2025
+start_date = datetime(2025, 4, 7, tzinfo=ZoneInfo('UTC'))  # January 1, 2025
+end_date = datetime(2025, 4, 8 , tzinfo=ZoneInfo('UTC'))    # April 3, 2025
 
 # Define the relevant contracts
 contracts = [
-    {'symbol': 'ES', 'exchange': 'CME', 'currency': 'USD', 'contract_month': '202503', 'roll_date': "20250318" },   # March 2025
+#    {'symbol': 'ES', 'exchange': 'CME', 'currency': 'USD', 'contract_month': '202503', 'roll_date': "20250318" },   # March 2025
     {'symbol': 'ES', 'exchange': 'CME', 'currency': 'USD', 'contract_month': '202506', 'roll_date': "20250618"}   # June 2025
 ]
 
@@ -64,7 +64,7 @@ for contract in contracts:
         # Convert the date column to UTC
         df['date'] = pd.to_datetime(df['date'], unit='s', utc=True)
         # Shift the data forward by 5 minutes // hack to allign with bender data 
-        df['date'] = df['date'] + pd.Timedelta(minutes=5)
+        ##df['date'] = df['date'] + pd.Timedelta(minutes=5)
         # Append the DataFrame to the list
         data_frames.append(df)
         # Update the previous roll date for the next contract
@@ -87,7 +87,7 @@ ib.disconnect()
 
 # Save the data to a CSV file (if data was fetched)
 if not combined_df.empty:
-    combined_df.to_csv('ES_5min_YTD_UTC.csv', index=False)
-    print("Data saved to 'ES_5min_YTD_UTC.csv'.")
+    combined_df.to_csv('ES_5min_7_april.csv', index=False)
+    print("Data saved to 'ES_5min_7_april.csv'.")
 else:
     print("No data to save.")
