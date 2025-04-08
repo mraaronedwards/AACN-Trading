@@ -1,8 +1,8 @@
 # constants.py
 # Discord-related constants
 AUTHORISATION = "MTMzMzYxOTAyMTA4OTczODc1Mg.G0ygyn.7PNpPIM3v6lomMXedf3kQqPNwTSXTWdIazphNA"
-BOT_USER_ID = 890950301119574026  # Bot ID for Me right now whilst testing; 123456789 for bender
-TARGET_CHANNEL_ID = 1334347783435714563  # Target channel ID
+BOT_USER_ID = 123456789  # Bot ID for Me right now whilst testing;  for bender
+TARGET_CHANNEL_ID = 1247171895648845874 # Target channel ID  1334347783435714563
 
 # IB-related constants
 IB_HOST = "127.0.0.1"

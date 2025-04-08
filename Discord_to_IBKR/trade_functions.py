@@ -34,7 +34,7 @@ def send_trade_email_confirmation(trade, action, symbol, timestamp, error=None):
     """
     try:
         # Create the email message
-        subject = "Trade Execution Confirmation"
+        subject = "Trade Execution Confirmation - TEST"
         body = f"""
         Trade Details:
         - Action: {action}
@@ -50,7 +50,7 @@ def send_trade_email_confirmation(trade, action, symbol, timestamp, error=None):
             - Average Price: {trade.orderStatus.avgFillPrice}
             """
         elif error:
-            subject = "Trade Execution Failure"
+            subject = "Trade Execution Failure - TEST"
             body += f"""
             - Error: {error}
             """

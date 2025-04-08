@@ -4,7 +4,6 @@ from trade_executor import start_trading_executor
 from utils.logging_utils import setup_logging
 from utils.state_manager import set_bot_state
 import threading
-from ui.app import app as flask_app
 
 def setup():
     """
@@ -22,6 +21,3 @@ if __name__ == "__main__":
     discord_thread.start()
     # Step 3: Start the trading executor 
     start_trading_executor()
-
-    # Step 4: Start the Flask UI
-    flask_app.run(host="0.0.0.0", port=5000)

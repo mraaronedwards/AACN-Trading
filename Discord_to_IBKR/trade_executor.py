@@ -32,14 +32,14 @@ def execute_trade(ib, product, action, symbol, timestamp):
     """
     Execute a trade.
     """
+    
     try:
         log_message(f"Executing {action} order for {symbol} at {timestamp}")
         
-       
         # Adjust the symbol for the future contract to MES as this is the micro future for S&P 500
         if symbol == "ES1":
             symbol = "MES"
-
+        
         # Fetch the nearest future contract
         contract = get_nearest_future_contract(ib, symbol)
         
