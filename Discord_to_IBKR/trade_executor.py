@@ -3,6 +3,7 @@ from ib_insync import *
 from datetime import datetime
 from constants import IB_HOST, IB_PORT, IB_CLIENT_ID
 from utils.queue_manager import get_from_queue
+from utils.db_manager import *
 from utils.logging_utils import log_message
 from utils.state_manager import set_ibkr_connection_status
 from trade_functions import *
@@ -31,8 +32,7 @@ def get_nearest_future_contract(ib, symbol):
 def execute_trade(ib, product, action, symbol, timestamp):
     """
     Execute a trade.
-    """
-    
+    """    
     try:
         log_message(f"Executing {action} order for {symbol} at {timestamp}")
         
@@ -53,9 +53,29 @@ def execute_trade(ib, product, action, symbol, timestamp):
         
         log_message(f"Placing {action} order for {symbol} at {timestamp}")
         trade = ib.placeOrder(contract, order)
+        ## Wait for the order to be filled
+        ib.sleep(1)  # Adjust the sleep time as needed
+        while not trade.isDone():
+            ib.sleep(1)
+        # Check if the order was filled
+        if trade.orderStatus.status != "Filled":
+            raise ValueError(f"Order not filled: {trade.orderStatus.status}")
+        # get the filled order price
+        log_message(f"Order filled: {trade.orderStatus.status} at {trade.orderStatus.avgFillPrice}")
+        # Write trade to SQL DB
+        write_trade(
+            symbol = symbol,
+            action = action,
+            price = trade.orderStatus.avgFillPrice,
+            quantity= trade.order.totalQuantity,
+            ib_order_id = trade.order.orderId
+        )
         # Log the trade details and send the email confirmation
         send_trade_email_confirmation(trade, action, symbol, timestamp)
-        log_message(f"Order placed: {trade}")
+        log_message(f"Order confirmed: {trade}")
+        # Calculate the relalised vol from this point on
+        "To do: "
+        
     except Exception as e:
         log_message(f"Error executing trade: {e}", level="ERROR")
         send_trade_email_confirmation(None, action, symbol, timestamp, error=e)

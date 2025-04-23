@@ -57,7 +57,7 @@ def send_trade_email_confirmation(trade, action, symbol, timestamp, error=None):
         
         msg = MIMEMultipart()
         msg['From'] = EMAIL_SENDER
-        msg['To'] = EMAIL_RECEIVER
+        msg['To'] = " , ".join(EMAIL_RECEIVER)
         msg['Subject'] = subject
         msg.attach(MIMEText(body, 'plain'))
         

@@ -36,7 +36,6 @@ async def on_message(message):
     if get_bot_state() == "paused":
         return  # Skip processing if the bot is paused
 
-    #print(f"Message from {message.author.id}: {message.channel.id}") # Delete later
     if message.author.id != BOT_USER_ID or message.channel.id != TARGET_CHANNEL_ID:
         return
 

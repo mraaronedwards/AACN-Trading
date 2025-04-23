@@ -1,0 +1,52 @@
+2025-04-23 15:57:47,836 - INFO - execDetails: Fill(contract=Contract(secType='FUT', conId=691171673, symbol='MES', lastTradeDateOrContractMonth='20250620', multiplier='5', exchange='CME', currency='USD', localSymbol='MESM5', tradingClass='MES'), execution=Execution(execId='0000e1a7.68083b43.01.01', time=datetime.datetime(2025, 4, 23, 5, 57, 46, tzinfo=datetime.timezone.utc), acctNumber='DUD052704', exchange='CME', side='BOT', shares=1.0, price=5403.75, permId=2036829638, clientId=1, orderId=42, liquidation=0, cumQty=1.0, avgPrice=5403.75, orderRef='', evRule='', evMultiplier=0.0, modelCode='', lastLiquidity=1), commissionReport=CommissionReport(execId='', commission=0.0, currency='', realizedPNL=0.0, yield_=0.0, yieldRedemptionDate=0), time=datetime.datetime(2025, 4, 23, 5, 57, 47, 835463, tzinfo=datetime.timezone.utc))
+2025-04-23 15:57:47,837 - INFO - orderStatus: Trade(contract=Contract(secType='FUT', conId=691171673, symbol='MES', lastTradeDateOrContractMonth='20250620', multiplier='5', exchange='CME', currency='USD', localSymbol='MESM5', tradingClass='MES'), order=MarketOrder(orderId=42, clientId=1, permId=2036829638, action='BUY', totalQuantity=1.0, lmtPrice=0.0, auxPrice=0.0), orderStatus=OrderStatus(orderId=42, status='Filled', filled=1.0, remaining=0.0, avgFillPrice=5403.75, permId=2036829638, parentId=0, lastFillPrice=5403.75, clientId=1, whyHeld='', mktCapPrice=0.0), fills=[Fill(contract=Contract(secType='FUT', conId=691171673, symbol='MES', lastTradeDateOrContractMonth='20250620', multiplier='5', exchange='CME', currency='USD', localSymbol='MESM5', tradingClass='MES'), execution=Execution(execId='0000e1a7.68083b43.01.01', time=datetime.datetime(2025, 4, 23, 5, 57, 46, tzinfo=datetime.timezone.utc), acctNumber='DUD052704', exchange='CME', side='BOT', shares=1.0, price=5403.75, permId=2036829638, clientId=1, orderId=42, liquidation=0, cumQty=1.0, avgPrice=5403.75, orderRef='', evRule='', evMultiplier=0.0, modelCode='', lastLiquidity=1), commissionReport=CommissionReport(execId='', commission=0.0, currency='', realizedPNL=0.0, yield_=0.0, yieldRedemptionDate=0), time=datetime.datetime(2025, 4, 23, 5, 57, 47, 835463, tzinfo=datetime.timezone.utc))], log=[TradeLogEntry(time=datetime.datetime(2025, 4, 23, 5, 57, 46, 282841, tzinfo=datetime.timezone.utc), status='PendingSubmit', message='', errorCode=0), TradeLogEntry(time=datetime.datetime(2025, 4, 23, 5, 57, 47, 834489, tzinfo=datetime.timezone.utc), status='PreSubmitted', message='', errorCode=0), TradeLogEntry(time=datetime.datetime(2025, 4, 23, 5, 57, 47, 835463, tzinfo=datetime.timezone.utc), status='PreSubmitted', message='Fill 1.0@5403.75', errorCode=0), TradeLogEntry(time=datetime.datetime(2025, 4, 23, 5, 57, 47, 835463, tzinfo=datetime.timezone.utc), status='Filled', message='', errorCode=0)], advancedError='')
+2025-04-23 15:57:47,838 - INFO - commissionReport: CommissionReport(execId='0000e1a7.68083b43.01.01', commission=0.62, currency='USD', realizedPNL=0.0, yield_=0.0, yieldRedemptionDate=0)
+2025-04-23 15:57:47,838 - INFO - position: Position(account='DUD052704', contract=Future(conId=691171673, symbol='MES', lastTradeDateOrContractMonth='20250620', multiplier='5', currency='USD', localSymbol='MESM5', tradingClass='MES'), position=7.0, avgCost=26977.941428557144)
+2025-04-23 15:57:47,840 - INFO - updatePortfolio: PortfolioItem(contract=Future(conId=691171673, symbol='MES', lastTradeDateOrContractMonth='20250620', right='0', multiplier='5', primaryExchange='CME', currency='USD', localSymbol='MESM5', tradingClass='MES'), position=7.0, marketPrice=5403.5, marketValue=189122.5, averageCost=26977.94142855, unrealizedPNL=276.91, realizedPNL=0.0, account='DUD052704')
+2025-04-23 15:57:54,570 - INFO - Order filled: Filled at 5403.75
+2025-04-23 15:59:10,732 - WARNING - Shard ID None heartbeat blocked for more than 10 seconds.
+Loop thread traceback (most recent call last):
+  File "c:\Users\Aaron\.vscode\extensions\ms-python.debugpy-2025.6.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\_pydev_bundle\pydev_monkey.py", line 1131, in __call__
+    ret = self.original_func(*self.args, **self.kwargs)
+  File "C:\Users\Aaron\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 1012, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\Aaron\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 1041, in _bootstrap_inner
+    self.run()
+  File "C:\Users\Aaron\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 992, in run
+    self._target(*self._args, **self._kwargs)
+  File "c:\Users\Aaron\ACCN\Discord_to_IBKR\discord_handler.py", line 56, in start_discord_listener
+    client.run(AUTHORISATION)
+  File "c:\Users\Aaron\ACCN\venv\Lib\site-packages\discord\client.py", line 906, in run
+    asyncio.run(runner())
+  File "C:\Users\Aaron\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+  File "C:\Users\Aaron\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Users\Aaron\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 712, in run_until_complete
+    self.run_forever()
+  File "C:\Users\Aaron\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 683, in run_forever
+    self._run_once()
+  File "C:\Users\Aaron\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2002, in _run_once
+    event_list = self._selector.select(timeout)
+  File "C:\Users\Aaron\AppData\Local\Programs\Python\Python313\Lib\asyncio\windows_events.py", line 446, in select
+    self._poll(timeout)
+  File "C:\Users\Aaron\AppData\Local\Programs\Python\Python313\Lib\asyncio\windows_events.py", line 804, in _poll
+    value = callback(transferred, key, ov)
+  File "C:\Users\Aaron\AppData\Local\Programs\Python\Python313\Lib\asyncio\windows_events.py", line 463, in finish_socket_func
+    return ov.getresult()
+  File "c:\Users\Aaron\.vscode\extensions\ms-python.debugpy-2025.6.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\_pydevd_sys_monitoring\_pydevd_sys_monitoring.py", line 1090, in _return_event
+    _do_wait_suspend(py_db, thread_info, frame, "return", None)
+  File "c:\Users\Aaron\.vscode\extensions\ms-python.debugpy-2025.6.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\_pydevd_sys_monitoring\_pydevd_sys_monitoring.py", line 1944, in _do_wait_suspend
+    py_db.do_wait_suspend(thread_info.thread, frame, event, arg)
+  File "c:\Users\Aaron\.vscode\extensions\ms-python.debugpy-2025.6.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\pydevd.py", line 2188, in do_wait_suspend
+    keep_suspended = self._do_wait_suspend(thread, frame, event, arg, trace_suspend_type, from_this_thread, frames_tracker)
+  File "c:\Users\Aaron\.vscode\extensions\ms-python.debugpy-2025.6.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\pydevd.py", line 2257, in _do_wait_suspend
+    notify_event.wait(wait_timeout)
+  File "C:\Users\Aaron\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 656, in wait
+    with self._cond:
+  File "C:\Users\Aaron\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 363, in wait
+    gotit = waiter.acquire(True, timeout)
+
+2025-04-23 15:59:11,359 - INFO - Shard ID None has successfully RESUMED session d7c644a451104078d5be528d3a8f4d6d.
+2025-04-23 15:59:41,067 - INFO - Email confirmation sent successfully.
+2025-04-23 15:59:42,111 - INFO - Order placed: Trade(contract=Contract(secType='FUT', conId=691171673, symbol='MES', lastTradeDateOrContractMonth='20250620', multiplier='5', exchange='CME', currency='USD', localSymbol='MESM5', tradingClass='MES'), order=MarketOrder(orderId=42, clientId=1, permId=2036829638, action='BUY', totalQuantity=1.0, lmtPrice=0.0, auxPrice=0.0), orderStatus=OrderStatus(orderId=42, status='Filled', filled=1.0, remaining=0.0, avgFillPrice=5403.75, permId=2036829638, parentId=0, lastFillPrice=5403.75, clientId=1, whyHeld='', mktCapPrice=0.0), fills=[Fill(contract=Contract(secType='FUT', conId=691171673, symbol='MES', lastTradeDateOrContractMonth='20250620', multiplier='5', exchange='CME', currency='USD', localSymbol='MESM5', tradingClass='MES'), execution=Execution(execId='0000e1a7.68083b43.01.01', time=datetime.datetime(2025, 4, 23, 5, 57, 46, tzinfo=datetime.timezone.utc), acctNumber='DUD052704', exchange='CME', side='BOT', shares=1.0, price=5403.75, permId=2036829638, clientId=1, orderId=42, liquidation=0, cumQty=1.0, avgPrice=5403.75, orderRef='', evRule='', evMultiplier=0.0, modelCode='', lastLiquidity=1), commissionReport=CommissionReport(execId='0000e1a7.68083b43.01.01', commission=0.62, currency='USD', realizedPNL=0.0, yield_=0.0, yieldRedemptionDate=0), time=datetime.datetime(2025, 4, 23, 5, 57, 47, 835463, tzinfo=datetime.timezone.utc))], log=[TradeLogEntry(time=datetime.datetime(2025, 4, 23, 5, 57, 46, 282841, tzinfo=datetime.timezone.utc), status='PendingSubmit', message='', errorCode=0), TradeLogEntry(time=datetime.datetime(2025, 4, 23, 5, 57, 47, 834489, tzinfo=datetime.timezone.utc), status='PreSubmitted', message='', errorCode=0), TradeLogEntry(time=datetime.datetime(2025, 4, 23, 5, 57, 47, 835463, tzinfo=datetime.timezone.utc), status='PreSubmitted', message='Fill 1.0@5403.75', errorCode=0), TradeLogEntry(time=datetime.datetime(2025, 4, 23, 5, 57, 47, 835463, tzinfo=datetime.timezone.utc), status='Filled', message='', errorCode=0)], advancedError='')
